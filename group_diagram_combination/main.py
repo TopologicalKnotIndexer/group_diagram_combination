@@ -38,6 +38,44 @@ def get_all_m_combine(num_of_items:int, M:int) -> list:
     dfs(arr, sol, num_of_items, M)
     return sol
 
+def connected(method:list, total_components:int) -> bool: # 检查是否所有组都连起来了
+
+    # 建图
+    nxt = {}
+    for i in range(1, total_components + 1):
+        nxt[i] = set()
+
+    def add_single_edge(nxt:dict[int, set[int]], frm, eto):
+        nxt[frm].add(eto)
+
+    def add_double_edge(nxt:dict[int, set[int]], frm, eto):
+        if frm != eto:
+            add_single_edge(nxt, frm, eto)
+            add_single_edge(nxt, eto, frm)
+
+    for edge in method:
+        frm, eto = edge
+        add_double_edge(nxt, frm[0], eto[0])
+
+    def dfs(x:int, vis:set[int], nxt:dict[int, set[int]]):
+        if x in vis:
+            return
+        vis.add(x)
+        for y in nxt[x]:
+            if y not in vis:
+                dfs(y, vis, nxt)
+
+    vis = set()
+    dfs(1, vis, nxt)
+    return len(vis) == total_components
+
+def select_all_connected(methods:list, total_components:int) -> list:
+    return [
+        method
+        for method in methods
+        if connected(method, total_components)
+    ]
+
 # 入口函数
 def main(A:list[int], M:int) -> list:
     if len(A) < 1:
@@ -47,10 +85,9 @@ def main(A:list[int], M:int) -> list:
             raise AssertionError()
     all_edges = get_all_posible_edges(A)
     all_m_combine = get_all_m_combine(len(all_edges), M)
-    return [
+    return select_all_connected([
         [all_edges[val] for val in item]
-        for item in all_m_combine
-    ]
+        for item in all_m_combine], len(A))
 
 if __name__ == "__main__":
-    print(len(main([2, 2, 2, 2], 3)))
+    print(len(main([2, 2, 2], 2)))
