@@ -20,7 +20,7 @@ print(methods[0])
 
 ## Algorithm
 
-Each usable node is represented as `[factor_index, component_index]`. Candidate edges connect nodes from different factors. The algorithm enumerates edge subsets of the requested size and uses a disjoint-set union structure to reject subsets that do not connect every factor. For the composite-link generator the requested size is `n - 1`, so every accepted factor-level graph is a spanning tree.
+Each usable node is represented as `[factor_index, component_index]`. Candidate edges connect nodes from different factors. The algorithm enumerates edge subsets of the requested non-negative integer size and uses a disjoint-set union structure to reject subsets that do not connect every factor. For the composite-link generator the requested size is `n - 1`, so every accepted factor-level graph is a spanning tree.
 
 ## Input conventions
 
@@ -32,12 +32,13 @@ No external software is required.
 
 ## Development
 
-Run examples and package checks before release. Python packages require Python 3.10 or newer. Build PyPI artifacts with:
+Python 3.10 or newer is required. Run the exhaustive small-graph tests with:
 
 ```bash
-poetry check
-poetry build
+python -m unittest discover -s tests -v
 ```
+
+No PyPI publication is performed as part of repository maintenance.
 
 ## License
 

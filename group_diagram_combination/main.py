@@ -42,6 +42,8 @@ def select_all_connected(methods: list, total_components: int) -> list:
 def main(component_counts: list[int], edge_count: int) -> list:
     if not component_counts or any(isinstance(count, bool) or not isinstance(count, int) or count < 1 for count in component_counts):
         raise ValueError("component counts must be positive integers")
+    if isinstance(edge_count, bool) or not isinstance(edge_count, int) or edge_count < 0:
+        raise ValueError("edge_count must be a non-negative integer")
     edges = get_all_posible_edges(component_counts)
     return [
         [edges[index] for index in indices]
