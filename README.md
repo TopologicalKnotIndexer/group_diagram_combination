@@ -43,3 +43,16 @@ No PyPI publication is performed as part of repository maintenance.
 ## License
 
 MIT. See `LICENSE`.
+
+## Citation
+
+If you use this repository in academic work, please cite it as:
+
+```bibtex
+@software{topologicalknotindexer_group_diagram_combination,
+  author = {{TopologicalKnotIndexer contributors}},
+  title = {{group\_diagram\_combination}},
+  year = {2026},
+  url = {https://github.com/TopologicalKnotIndexer/group_diagram_combination}
+}
+```
